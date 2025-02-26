@@ -7,7 +7,7 @@ const app = express();
 // 解析 JSON body（GitHub webhook 的 payload）
 app.use(express.json());
 
-const PORT = process.env.DEPLOY_PORT || 5000;
+const PORT = process.env.DEPLOY_PORT || 3000;
 
 // 設定一個密鑰（可選），用來驗證 webhook 是否來自你可信任的來源
 const SECRET = process.env.WEBHOOK_SECRET || "your_secret_here";
@@ -25,6 +25,11 @@ app.post("/webhook", (req, res) => {
         console.error(`stderr: ${stderr}`);
         res.send("部署成功"); 
     });
+});
+
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).json({ error: "伺服器錯誤" });
 });
 
 app.listen(PORT, () => {
