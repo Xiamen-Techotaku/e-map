@@ -16,7 +16,7 @@ app.use("/api/waaship", waashipRouter);
 // 全域錯誤處理中介層
 app.use((err, req, res, next) => {
     console.error(err);
-    res.status(500).json({ error: "伺服器錯誤" });
+    res.status(500).json({ error: "伺服器錯誤"});
 });
 
 const port = process.env.MAP_PORT || 443;
