@@ -23,7 +23,7 @@ app.post("/webhook", (req, res) => {
         }
         console.log(`stdout: ${stdout}`);
         console.error(`stderr: ${stderr}`);
-        res.send("部署成功");
+        res.send("部署成功"); 
     });
 });
 
