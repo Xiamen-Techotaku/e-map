@@ -19,7 +19,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: "伺服器錯誤" });
 });
 
-const port = process.env.PORT || 4000;
+const port = process.env.MAP_PORT || 443;
 app.listen(port, () => {
     console.log(`後端伺服器運行在 ${port} 端口`);
 });
