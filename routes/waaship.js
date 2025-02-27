@@ -31,7 +31,7 @@ router.post("/select-store", async (req, res) => {
 
 // POST /api/waaship/:domain/callback
 // 此端點用來接收 Waaship 回傳的 Callback 資料，並轉發到對應的網站
-router.post("/:domain/callback", async (req, res) => {
+router.get("/:domain/callback", async (req, res) => {
     const domain = req.params.domain;
     console.log(`Callback received from domain: ${domain}`, req.body);
 
