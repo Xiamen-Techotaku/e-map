@@ -36,17 +36,15 @@ router.post("/:domain/callback", async (req, res) => {
     console.log(`Callback received from domain: ${domain}`, req.body);
 
     // 根據傳入的 domain 組出目標 callback URL
-    // 這裡假設每個網站都有一個固定的 callback endpoint，例如：https://<domain>/waaship-callback
+    // 假設每個網站都有一個固定的 callback endpoint，例如：https://<domain>/api/retail/waaship-callback
     const targetUrl = `https://${domain}/api/retail/waaship-callback`;
 
     try {
         const forwardResponse = await axios.post(targetUrl, req.body, {
             headers: { "Content-Type": "application/json" },
         });
-        res.json({
-            message: "Callback forwarded successfully",
-            data: forwardResponse.data,
-        });
+        // 直接回傳 HTML，不包裝在 JSON 裡
+        res.send(forwardResponse.data);
     } catch (error) {
         console.error("Error forwarding callback:", error);
         res.status(500).json({
