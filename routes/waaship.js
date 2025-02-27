@@ -29,14 +29,31 @@ router.post("/select-store", async (req, res) => {
     }
 });
 
-// POST /api/waaship/select-store-callback/:token
-// 此端點用來接收 Waaship 回傳的 Callback 資料
-router.post("/select-store-callback/:token", (req, res) => {
-    const token = req.params.token;
-    // 此處可以根據 token 驗證 Callback 的合法性
-    console.log("Callback received, token:", token, "Data:", req.body);
-    // 回傳 JSON 成功訊息
-    res.json({ message: "Callback received", data: req.body });
+// POST /api/waaship/:domain/callback
+// 此端點用來接收 Waaship 回傳的 Callback 資料，並轉發到對應的網站
+router.post("/:domain/callback", async (req, res) => {
+    const domain = req.params.domain;
+    console.log(`Callback received from domain: ${domain}`, req.body);
+
+    // 根據傳入的 domain 組出目標 callback URL
+    // 這裡假設每個網站都有一個固定的 callback endpoint，例如：https://<domain>/waaship-callback
+    const targetUrl = `https://${domain}/waaship-callback`;
+
+    try {
+        const forwardResponse = await axios.post(targetUrl, req.body, {
+            headers: { "Content-Type": "application/json" },
+        });
+        res.json({
+            message: "Callback forwarded successfully",
+            data: forwardResponse.data,
+        });
+    } catch (error) {
+        console.error("Error forwarding callback:", error);
+        res.status(500).json({
+            error: "Error forwarding callback",
+            details: error.message,
+        });
+    }
 });
 
 module.exports = router;
