@@ -26,9 +26,9 @@ app.use((err, req, res, next) => {
 });
 
 const options = {
-    key: fs.readFileSync("../ssl/myserver.key"), // 載入私鑰
-    cert: fs.readFileSync("../ssl/buyeastern.xyz.crt"), // 載入網域憑證
-    ca: fs.readFileSync("../ssl/GandiCert.pem"), // 載入中繼憑證
+    key: fs.readFileSync("./ssl/myserver.key"), // 載入私鑰
+    cert: fs.readFileSync("./ssl/buyeastern.xyz.crt"), // 載入網域憑證
+    ca: fs.readFileSync("./ssl/GandiCert.pem"), // 載入中繼憑證
 };
 
 const port = process.env.MAP_PORT || 443;
