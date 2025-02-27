@@ -37,7 +37,7 @@ router.post("/:domain/callback", async (req, res) => {
 
     // 根據傳入的 domain 組出目標 callback URL
     // 這裡假設每個網站都有一個固定的 callback endpoint，例如：https://<domain>/waaship-callback
-    const targetUrl = `http://${domain}/waaship-callback`;
+    const targetUrl = `http://${domain}/api/retail/waaship-callback`;
 
     try {
         const forwardResponse = await axios.post(targetUrl, req.body, {
